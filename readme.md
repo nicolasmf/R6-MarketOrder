@@ -28,3 +28,7 @@ APP_ID = ""
 ### Example :
 
 `python3 main.py "https://www.ubisoft.com/fr-fr/game/rainbow-six/siege/marketplace?route=sell%2Fitem-details&itemId=a1f831aa-b6fd-08ce-13e9-45ab2397d998"`
+
+## How does it work 
+
+This tool will, for a given item, try to buy it as low of a price as possible. For that, it will open a sale order starting at 50% of the lowest item price range, and increment the price by 1 until the item is bought. If the script reaches the low end of the price range, it will stop to avoid buying the item for too much credits.
