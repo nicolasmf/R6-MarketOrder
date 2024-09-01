@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-ITEM_URL = "https://www.ubisoft.com/fr-fr/game/rainbow-six/siege/marketplace?route=buy%2Fitem-details&itemId=a1f831aa-b6fd-08ce-13e9-45ab2397d998"
+ITEM_URL = "https://www.google.com/search?client=firefox-b-d&q=python+args"
 
 AUTH_TOKEN = os.getenv("AUTH_TOKEN")
 SESSION_ID = os.getenv("SESSION_ID")
@@ -29,9 +29,13 @@ def get_item_id_space_id(url):
     re_space_id = re.compile(r"\"activeGameSpaceId\":\"(.*?)\"")
 
     response = requests.get(url)
-
     try:
         item_id = url.split("itemId=")[1]
+    except IndexError:
+        print("Not a valid item URL.")
+        os._exit(1)
+
+    try:
         space_id = re_space_id.search(response.text).group(1)
     except AttributeError:
         return None, None
