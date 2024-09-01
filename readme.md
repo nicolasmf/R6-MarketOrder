@@ -1,6 +1,6 @@
-# R6 MarketSnipe
+# R6 MarketOrder
 
-This tool can be used to buy a certain item for cheap, also called sniping. 
+This tool can be used to buy a certain item for cheap, also called pre-ordering. 
 
 Don't hesitate to create issues to ask for more functionalities.
 
