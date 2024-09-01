@@ -20,4 +20,9 @@ APP_ID = ""
 - Go to the [Rainbow6 Markeplace](https://www.ubisoft.com/en-us/game/rainbow-six/siege/marketplace?route=home)
 - Open the network dev tools
 - Navigate to either the Buy, Sell, or My Transactions
-- You'll get a POST request with everything you need.
+- You'll get a POST request with every values you need in the **raw** requests headers :
+    - ubi-appid: <APP_ID>
+    - ubi-sessionid: <SESSION_ID>
+    - authorization: ubi_v1 t=<AUTH_TOKEN>
+
+![](./images/image.png)
