@@ -4,9 +4,9 @@ import os
 import re
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
-ITEM_URL = ""
+ITEM_URL = "https://www.ubisoft.com/fr-fr/game/rainbow-six/siege/marketplace?route=buy%2Fitem-details&itemId=a1f831aa-b6fd-08ce-13e9-45ab2397d998"
 
 AUTH_TOKEN = os.getenv("AUTH_TOKEN")
 SESSION_ID = os.getenv("SESSION_ID")
@@ -26,13 +26,12 @@ HEADERS = {
 
 
 def get_item_id_space_id(url):
-    re_item_id = re.compile(r"data-itemId=\"(.*?)\"")
     re_space_id = re.compile(r"\"activeGameSpaceId\":\"(.*?)\"")
 
     response = requests.get(url)
 
     try:
-        item_id = re_item_id.search(response.text).group(1)
+        item_id = url.split("itemId=")[1]
         space_id = re_space_id.search(response.text).group(1)
     except AttributeError:
         return None, None
@@ -92,11 +91,19 @@ def get_market_information(item_id, space_id):
         }
     ]
 
-    response = requests.post(url, headers=HEADERS, json=body)
+    try:
+        response = requests.post(url, headers=HEADERS, json=body)
+    except UnicodeEncodeError:
+        print(
+            "[!] There was a problem with the parsing of the auth token. There are invalid characters in your token."
+        )
+        os._exit(1)
 
     json_response = response.json()[0]
 
-    if "Ticket is expired" in json.dumps(json_response):
+    if "expired" in json.dumps(json_response) or "INVALID_TICKET" in json.dumps(
+        json_response
+    ):
         return None, None, None
 
     name = json_response["data"]["game"]["marketableItem"]["item"]["name"]
@@ -505,7 +512,7 @@ def main():
 
     if is_owned is None and paymentItemId is None and lowest_sell_price is None:
         print(
-            "Failed to retrieve market information. Authorization is expired. Please replace your tokens in .env file."
+            "[!] Failed to retrieve market information. Authorization is expired. Please replace your tokens in .env file."
         )
         return
 
