@@ -12,8 +12,6 @@ AUTH_TOKEN = ""
 SESSION_ID = ""
 APP_ID = ""
 ```
-- Change the URL with the one of the item you want in the 9th line of the main script
-- Run and wait !
 
 ### Find the variable values 
 
@@ -26,3 +24,7 @@ APP_ID = ""
     - authorization: ubi_v1 t=<AUTH_TOKEN>
 
 ![](./images/image.png)
+
+### Example :
+
+`python3 main.py "https://www.ubisoft.com/fr-fr/game/rainbow-six/siege/marketplace?route=sell%2Fitem-details&itemId=a1f831aa-b6fd-08ce-13e9-45ab2397d998"`

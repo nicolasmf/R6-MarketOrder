@@ -1,12 +1,13 @@
 import requests
 import json
+import sys
 import os
 import re
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-ITEM_URL = "https://www.google.com/search?client=firefox-b-d&q=python+args"
+ITEM_URL = sys.argv[1]
 
 AUTH_TOKEN = os.getenv("AUTH_TOKEN")
 SESSION_ID = os.getenv("SESSION_ID")
